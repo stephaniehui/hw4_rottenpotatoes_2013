@@ -39,7 +39,7 @@ class MoviesController < ApplicationController
         #ordering,@release_date_header = {:order => :release_date}, 'hilite'
       end
     else
-      @movies = Movie.where(:rating => (@selected_ratings)) #@selected_ratings.keys
+      @movies = Movie.where(:rating => (@selected_ratings.keys)) #@selected_ratings.keys
       case sort
       when 'title'
         @title_header = 'hilite'
@@ -51,6 +51,7 @@ class MoviesController < ApplicationController
         #ordering,@release_date_header = {:order => :release_date}, 'hilite'
       end
     end
+    puts @movies
   end
 
   def new
