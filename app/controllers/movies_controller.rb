@@ -12,20 +12,26 @@ class MoviesController < ApplicationController
     sort = params[:sort] || session[:sort]
 
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || session[:ratings] || {}
+    @selected_ratings = params[:ratings] || session[:ratings] || []
+    if @selected_ratings.is_a?(Hash)
+      @selected_ratings = @selected_ratings.keys
+    end
+    #@selected_ratings.to_a
+    puts "ben"
+    puts @selected_ratings
 
     if params[:sort] != session[:sort]
       session[:sort] = sort
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
 
-    if params[:ratings] != session[:ratings] and @selected_ratings != {}
+    if params[:ratings] != session[:ratings] and @selected_ratings != []
       session[:sort] = sort
       session[:ratings] = @selected_ratings
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
 
-    if @selected_ratings == {}
+    if @selected_ratings == []
       if session[:ratings] == nil
         @selected_ratings = @all_ratings
       else
@@ -44,7 +50,7 @@ class MoviesController < ApplicationController
         #ordering,@release_date_header = {:order => :release_date}, 'hilite'
       end
     else
-      @movies = Movie.where(:rating => (@selected_ratings.keys)) #@selected_ratings.keys
+      @movies = Movie.where(:rating => @selected_ratings) #@selected_ratings.keys
       case sort
       when 'title'
         @title_header = 'hilite'
