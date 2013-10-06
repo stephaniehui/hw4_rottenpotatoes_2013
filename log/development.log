@@ -2634,3 +2634,51 @@ Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-06 14:37:05
 Served asset /application.js - 304 Not Modified (1ms)
 Connecting to database specified by database.yml
   [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-10-06 14:46:57 -0700
+Connecting to database specified by database.yml
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('PG', 'NC-17', 'R')[0m
+  Rendered movies/index.html.haml within layouts/application (17.2ms)
+Completed 200 OK in 108ms (Views: 94.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-06 14:46:58 -0700
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-06 14:46:58 -0700
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-06 14:46:58 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (14ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-06 14:46:58 -0700
+Served asset /application.js - 304 Not Modified (13ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-10-06 14:50:24 -0700
+Connecting to database specified by database.yml
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+  Rendered movies/index.html.haml within layouts/application (16.3ms)
+Completed 200 OK in 89ms (Views: 78.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-06 14:50:24 -0700
+Served asset /application.css - 304 Not Modified (45ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-06 14:50:24 -0700
+Served asset /jquery.js - 304 Not Modified (11ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-06 14:50:24 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-06 14:50:24 -0700
+Served asset /application.js - 304 Not Modified (16ms)
