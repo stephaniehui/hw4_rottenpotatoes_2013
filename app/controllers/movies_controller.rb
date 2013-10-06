@@ -12,21 +12,21 @@ class MoviesController < ApplicationController
     sort = params[:sort] || session[:sort]
 
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || {} #|| session[:ratings] || {}
+    @selected_ratings = params[:ratings] || {} || session[:ratings]
 
-    # if params[:sort] != session[:sort]
-    #   session[:sort] = sort
-    #   redirect_to :sort => sort, :ratings => @selected_ratings and return
-    # end
+    if params[:sort] != session[:sort]
+      session[:sort] = sort
+      redirect_to :sort => sort, :ratings => @selected_ratings and return
+    end
 
-    # if params[:ratings] != session[:ratings] and @selected_ratings != {}
-    #   session[:sort] = sort
-    #   session[:ratings] = @selected_ratings
-    #   redirect_to :sort => sort, :ratings => @selected_ratings and return
-    # end
+    if params[:ratings] != session[:ratings] and @selected_ratings != {}
+      session[:sort] = sort
+      session[:ratings] = @selected_ratings
+      redirect_to :sort => sort, :ratings => @selected_ratings and return
+    end
 
     if @selected_ratings == {}
-      @selected_ratings = @all_ratings
+      @selected_ratings = session[:ratings] #@all_ratings
       @movies = Movie.all
       case sort
       when 'title'
