@@ -8,17 +8,16 @@ class MoviesController < ApplicationController
 
   def index
     #@movies = Movie.all
+    #session is an array
 
     sort = params[:sort] || session[:sort]
 
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || session[:ratings] || []
+    @selected_ratings = params[:ratings] || session[:ratings] || [] 
     if @selected_ratings.is_a?(Hash)
       @selected_ratings = @selected_ratings.keys
     end
-    #@selected_ratings.to_a
-    puts "ben"
-    puts @selected_ratings
+    
 
     if params[:sort] != session[:sort]
       session[:sort] = sort
