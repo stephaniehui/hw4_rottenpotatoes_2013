@@ -7,60 +7,26 @@ class MoviesController < ApplicationController
   end
 
   def index
-    #@movies = Movie.all
-    #session is an array
-
     sort = params[:sort] || session[:sort]
-
+    case sort
+    when 'title'
+      ordering,@title_header = {:order => :title}, 'hilite'
+    when 'release_date'
+      ordering,@date_header = {:order => :release_date}, 'hilite'
+    end
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || session[:ratings] || [] 
-    if @selected_ratings.is_a?(Hash)
-      @selected_ratings = @selected_ratings.keys
+    @selected_ratings = params[:ratings] || session[:ratings] || {}
+    
+    if @selected_ratings == {}
+      @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
     
-
-    if params[:sort] != session[:sort]
-      session[:sort] = sort
-      redirect_to :sort => sort, :ratings => @selected_ratings and return
-    end
-
-    if params[:ratings] != session[:ratings] and @selected_ratings != []
+    if params[:sort] != session[:sort] or params[:ratings] != session[:ratings]
       session[:sort] = sort
       session[:ratings] = @selected_ratings
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
-
-    if @selected_ratings == []
-      if session[:ratings] == nil
-        @selected_ratings = @all_ratings
-      else
-        @selected_ratings = session[:ratings]
-      end
-      #@selected_ratings = session[:ratings] unless session[:ratings].nil? #@all_ratings
-      @movies = Movie.all
-      case sort
-      when 'title'
-        @title_header = 'hilite'
-        @movies = Movie.all(:order => :title)
-        #ordering,@title_header = {:order => :title}, 'hilite'
-      when 'release_date'
-        @release_date_header = 'hilite'
-        @movies = Movie.all(:order => :release_date)
-        #ordering,@release_date_header = {:order => :release_date}, 'hilite'
-      end
-    else
-      @movies = Movie.where(:rating => @selected_ratings) #@selected_ratings.keys
-      case sort
-      when 'title'
-        @title_header = 'hilite'
-        @movies = @movies.all(:order => :title)
-        #ordering,@title_header = {:order => :title}, 'hilite'
-      when 'release_date'
-        @release_date_header = 'hilite'
-        @movies = @movies.all(:order => :release_date)
-        #ordering,@release_date_header = {:order => :release_date}, 'hilite'
-      end
-    end
+    @movies = Movie.find_all_by_rating(@selected_ratings.keys, ordering)
   end
 
   def new
