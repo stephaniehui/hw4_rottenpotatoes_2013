@@ -9,6 +9,11 @@ Given /the following movies exist/ do |movies_table|
   #flunk "Unimplemented"
 end
 
+
+Then /the director of "(.*)" should be "(.*)"/ do |movie, director|
+  assert Movie.find_by_title(movie).director == director
+end
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
@@ -34,6 +39,11 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
       check(r.strip)
     end
   end
+end
+
+Then /I should not see any of the movies/ do
+  rows = page.all('#movies tr').size - 1
+  assert rows == 0
 end
 
 Then /I should see all the movies/ do

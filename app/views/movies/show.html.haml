@@ -1,7 +1,7 @@
 -# in app/views/movies/show.html.haml
 
 %h2 Details about #{@movie.title}
-= link_to "Find Movies with Same Director", similar_movie_path(@movie)
+= link_to 'Find Movies With Same Director', similar_movie_path(@movie)
 
 %ul#details
   %li
@@ -10,9 +10,9 @@
   %li
     Released on:
     = @movie.release_date.strftime("%B %d, %Y")
-   %li
-   	Directed by:
-   	= @movie.director
+  %li
+    Directed by:
+    = @movie.director
 
 %h3 Description:
 

@@ -5,4 +5,5 @@ class Movie < ActiveRecord::Base
 
   def self.find_similar_movies(movie)
   	Movie.find(:all, :conditions => [ "director = '#{movie.director}' AND id != '#{movie.id}'"])
+  end
 end
